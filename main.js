@@ -115,8 +115,22 @@ function getCanvasRelativePosition(event) {
     };
 }
 
+function getCanvasRelativePositionTouch(event) {
+    const rect = canvasElement.getBoundingClientRect();
+    return {
+        x: (event.touches[0].pageX - rect.left) * canvasElement.width  / rect.width,
+        y: (event.touches[0].pageY - rect.top ) * canvasElement.height / rect.height,
+    };
+}
+
 function setPickPosition(event) {
     const pos = getCanvasRelativePosition(event);
+    pickPosition.x = (pos.x / canvasElement.width ) * 2 - 1;
+    pickPosition.y = (pos.y / canvasElement.height) * -2 + 1;  
+}
+
+function setPickPositionTouch(event) {
+    const pos = getCanvasRelativePositionTouch(event);
     pickPosition.x = (pos.x / canvasElement.width ) * 2 - 1;
     pickPosition.y = (pos.y / canvasElement.height) * -2 + 1;  
 }
@@ -134,11 +148,22 @@ function mouseUp(){
     isMouseTouch = false;
 }
 
-window.addEventListener('mouseup',mouseUp);
-window.addEventListener('mousedown',mouseDown);
-window.addEventListener('mousemove', setPickPosition);
-window.addEventListener('mouseout', clearPickPosition);
-window.addEventListener('mouseleave', clearPickPosition);
+if(isSmartPhone==true){
+    window.addEventListener('touchend',mouseUp);
+    window.addEventListener('touchstart',mouseDown);
+    window.addEventListener('touchmove', setPickPositionTouch);
+    window.addEventListener('touchend', clearPickPosition);
+    window.addEventListener('mouseend', clearPickPosition);
+    console.log("スマホのイベント初期化が実行されました");
+}
+else{
+    window.addEventListener('mouseup',mouseUp);
+    window.addEventListener('mousedown',mouseDown);
+    window.addEventListener('mousemove', setPickPosition);
+    window.addEventListener('mouseout', clearPickPosition);
+    window.addEventListener('mouseleave', clearPickPosition);
+}
+
 
 function cameraRot(){
     theta += radSpeed*0.1;
@@ -169,9 +194,11 @@ window.onload = function() {
 }
 
 function isSmartPhone() {
-    if (navigator.userAgent.match(/iPhone|Android.+Mobile/)) {
+    // デバイス幅が640px以下の場合にスマホと判定する
+    if (window.matchMedia && window.matchMedia('(max-device-width: 640px)').matches) {
+        console.log("これはスマホです");
         return true;
-    }else{
+    } else {
         return false;
     }
 }
