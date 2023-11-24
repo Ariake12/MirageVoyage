@@ -7,19 +7,18 @@ let centerSphere;
 const centerSphereScale = 700;
 const centerSphereElevation = 700;
 
-export function LEDPoolFloatingLightCreate(system){
+export function LEDPoolFloatingLightCreate(scene){
     const geometry = new THREE.SphereGeometry(centerSphereScale, centerSphereScale, centerSphereScale);
     const material = new THREE.MeshBasicMaterial();
     material.color.setHSL(0,0,1);
     centerSphere = new THREE.Mesh(geometry, material);
     centerSphere.position.y += centerSphereElevation;
-    //getBloomTarget(centerSphere);
+    getBloomTarget(centerSphere);
+    //centerSphere.layers.set(1);
     cameraToSphere(centerSphere);
-    system.add(centerSphere);
+    //scene.add(centerSphere);
 
-    const sphereCountrySystem = new THREE.Object3D();
-    SphereCountryCreate(sphereCountrySystem);
-    system.add(sphereCountrySystem);
+    SphereCountryCreate(scene);
 }
 
 export function cameraToSphere(camera){

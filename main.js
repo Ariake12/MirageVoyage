@@ -5,7 +5,6 @@ import {shaderAnimate} from "./system.js"
 import {PickHelper} from "./pick.js"
 import { cameraToSphere } from "./ledPoolFloatingLightSystem.js";
 import {BloomInit} from "./effect.js";
-import {BloomRender} from "./effect.js";
 import { humanRotate } from "./system.js";
 
 let mousePosX1 = 0.0;
@@ -20,27 +19,26 @@ let isMouseTouch = false;
 
 const clock = new THREE.Clock();
 
-// サイズを指定
-const width = window.innerWidth;
-const height = window.innerHeight;
-
 // レンダラーを作成
 const canvasElement = document.querySelector('#maincanvas');
 const renderer = new THREE.WebGLRenderer({
     canvas: canvasElement,
+    preserveDrawingBuffer: true,
+    alpha: true, // 背景を透明にする
 });
 renderer.setPixelRatio(window.devicePixelRatio);
-renderer.setSize(width, height);
+renderer.setSize(window.innerWidth, window.innerHeight);
+renderer.autoClear = false; // レイヤーを有効化するときは自動クリアを無効化する
 
 // シーンを作成
 const scene = new THREE.Scene();
-const objects = [];
 
 // カメラを作成
-const camera = new THREE.PerspectiveCamera(60, width / height, 0.1, 5000);
+const camera = new THREE.PerspectiveCamera(60, window.innerWidth / window.innerHeight, 0.1, 5000);
 camera.position.set(0, 200, controllRadius);
 const eyeDir = new THREE.Vector3();
 camera.getWorldDirection(eyeDir);
+scene.add(camera);
 
 //ライトを作成
 const directionalLight = new THREE.DirectionalLight(new THREE.Color(0.0,0.0,0.0),);
@@ -52,8 +50,10 @@ const ambientLight = new THREE.AmbientLight(new THREE.Color(0.0,0.0,0.0),0);
 scene.add(ambientLight);
 
 //オブジェクトの設定
-objectsCreate(scene,objects);
-BloomInit(renderer,scene,camera);
+const sea = new THREE.Object3D();
+scene.add(sea);
+objectsCreate(scene,sea);
+const effectComposer = BloomInit(renderer,scene,camera);
 
 //resize初期化
 onResize();
@@ -80,9 +80,11 @@ function render(time) {
     cameraToSphere(camera);
     humanRotate(camera,theta);
 
-    pickHelper.pick(pickPosition,objects[0],camera);
+    pickHelper.pick(pickPosition,sea,camera);
 
-    //BloomRender();
+    renderer.clear();
+    //effectComposer.render(); // レンダリング
+    renderer.clearDepth();
     renderer.render(scene, camera); // レンダリング
 }
 

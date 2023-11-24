@@ -1,8 +1,9 @@
 import * as THREE from "three";
 import {LEDPoolFloatingLightCreate} from "./ledPoolFloatingLightSystem.js";
+import { getBloomTarget } from "./effect.js";
 
-const planeWidth = 1000;
-const planeHeight = 1000;
+const planeWidth = 500;
+const planeHeight = 500;
 
 const uniforms = {
     uv: {value: new THREE.Vector2},
@@ -54,7 +55,7 @@ const shaderComputeScene = new THREE.Scene();
 
 const blitScene = new THREE.Scene();
 
-function loadShader(system){
+function loadShader(scene,sea){
     let vertexShader,fragmentShader;
     const loader = new THREE.FileLoader();
     loader.load("./shader/vertexShader.glsl",function(data){
@@ -66,7 +67,7 @@ function loadShader(system){
             const loader2 = new THREE.TextureLoader();
             texture = loader2.load("./src/Noise_Normal.png");
 
-            const geometry = new THREE.PlaneGeometry(10000,10000,planeWidth,planeHeight);
+            const geometry = new THREE.PlaneGeometry(5000,5000,planeWidth,planeHeight);
             geometry.computeTangents();
             const material = new THREE.RawShaderMaterial({
                 vertexShader: vertexShader,
@@ -76,12 +77,15 @@ function loadShader(system){
             plane = new THREE.Mesh(geometry, material);
             plane.position.y -= 20;
             plane.rotation.x += -1.6;
+            //plane.layers.set(0);
             uvAttribute = plane.geometry.getAttribute("uv");
             normalAttribute = plane.geometry.getAttribute("normal");
             tangentAttribute = plane.geometry.attributes.tangent;
             binormalAttribute = plane.geometry.attributes.binormal;
 
-            system.add(plane);
+            //seaにオブジェクト3Dを追加
+            sea.add(plane);
+            //getBloomTarget(plane);
         });
     });
 
@@ -120,25 +124,17 @@ function loadShader(system){
     })
 }
 
-export function objectsCreate(scene,objects){
+export function objectsCreate(scene,sea){
     //水面の追加
-    waterSystem = new THREE.Object3D();
-    scene.add(waterSystem);
-    objects.push(waterSystem);
-
-    loadShader(waterSystem);
+    loadShader(scene,sea);
 
     //LEDプールフローティングライトの追加
-    const LEDPoolFloatingLightSystem = new THREE.Object3D();
-    LEDPoolFloatingLightCreate(LEDPoolFloatingLightSystem);
-    scene.add(LEDPoolFloatingLightSystem);
-    objects.push(LEDPoolFloatingLightSystem);
+    LEDPoolFloatingLightCreate(scene);
 
     //人物の追加
     const textureLoader = new THREE.TextureLoader();
     const texture = textureLoader.load('./src/Human.png');
 
-    const humanSystem = new THREE.Object3D();
     const plane = new THREE.PlaneGeometry(400,400);
     const humanMaterial = new THREE.MeshBasicMaterial({
         map: texture,
@@ -147,9 +143,8 @@ export function objectsCreate(scene,objects){
     });
     humanImage = new THREE.Mesh(plane,humanMaterial);
     humanImage.position.y = 300;
-    humanSystem.add(humanImage);
-    scene.add(humanSystem);
-    objects.push(humanSystem);
+    //humanImage.layers.set(0);
+    scene.add(humanImage);
 
     //skyboxの追加
     cubeTexture = new THREE.CubeTextureLoader()

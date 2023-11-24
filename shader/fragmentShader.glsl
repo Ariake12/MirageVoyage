@@ -21,9 +21,11 @@ void main() {
     //フレネル反射
     float vdotn = dot(vEye,vNormal);
     float fresnel = F0 + (1.-F0) * pow(1.-vdotn,5.);
-    col *= fresnel * 0.02;
+    col.b *= fresnel * 0.04;
+    col.g *= fresnel * 0.1;
+    col.r *= fresnel * 0.1;
 
-    vec4 diffuseCol = mix(vec4(0.01,0.01,0.01,1.),vec4(0.05, 0.06, 0.12, 1.0),vec4(max(0.,dot(vNormal,vLightDir)*1.0+0.0)));
+    vec4 diffuseCol = mix(vec4(0.01,0.01,0.01,1.),vec4(0.2, 0.24, 0.48, 1.0),vec4(max(0.,dot(vNormal,vLightDir)*1.0+0.0)));
     col = col * diffuseCol + reflectedColor;
 
     //col = vec4(texture2D(waveMap,vUv).rgb,1.);
