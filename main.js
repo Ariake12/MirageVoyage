@@ -12,6 +12,8 @@ let mousePosX2 = 0.0;
 let saveTime = 1.0;
 let touchTime = 1.0;
 
+let isDraw = false;
+
 const controllRadius = 1500;
 let radSpeed = 0.0;
 let theta = 0.0;
@@ -20,7 +22,7 @@ let isMouseTouch = false;
 const clock = new THREE.Clock();
 
 // レンダラーを作成
-const canvasElement = document.querySelector('#maincanvas');
+const canvasElement = document.querySelector('#mainCanvas');
 const renderer = new THREE.WebGLRenderer({
     canvas: canvasElement,
     preserveDrawingBuffer: true,
@@ -82,10 +84,16 @@ function render(time) {
 
     pickHelper.pick(pickPosition,sea,camera);
 
-    renderer.clear();
-    //effectComposer.render(); // レンダリング
-    renderer.clearDepth();
-    renderer.render(scene, camera); // レンダリング
+    if(isDraw){
+        renderer.clear();
+        //effectComposer.render(); // レンダリング
+        renderer.clearDepth();
+        renderer.render(scene, camera); // レンダリング
+
+        console.log("render");
+    }{
+        console.log("render待機")
+    }
 }
 
 function onResize(){
@@ -152,6 +160,10 @@ function mouseVelocity(){
 
 window.onload = function() {
     console.log("webページを読み込み完了しました");
+    isDraw = true;
+
+    const spinner = document.getElementById('loading');
+    spinner.classList.add('loaded');
 
     //document.querySelector('mainCanvas').style.display = 'block';
 }
