@@ -8,7 +8,7 @@ let bloomGroup = new THREE.Group();
 export function BloomInit(render,scene,camera){
     scene.add(bloomGroup);
 
-    console.log(bloomGroup);
+    //console.log(bloomGroup);
 
     const renderScene = new RenderPass(bloomGroup,camera);
     const bloomPass = new UnrealBloomPass(

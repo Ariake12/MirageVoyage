@@ -149,3 +149,23 @@ function mouseVelocity(){
         saveTime = clock.getElapsedTime();
     }
 }
+
+window.onload = function() {
+    console.log("webページを読み込み完了しました");
+
+    //document.querySelector('mainCanvas').style.display = 'block';
+}
+
+function isSmartPhone() {
+    if (navigator.userAgent.match(/iPhone|Android.+Mobile/)) {
+        return true;
+    }else{
+        return false;
+    }
+}
+
+if(isSmartPhone()){
+    window.addEventListener('load', function() {
+        screen.orientation.lock('landscape');
+    }); 
+}
