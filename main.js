@@ -153,22 +153,22 @@ function mouseUp(){
     isMouseTouch = false;
 }
 
-if(isMobileDevice()==true || isInAppBrowser()==true){
+/*if(isMobileDevice()==true || isInAppBrowser()==true){
     window.addEventListener('touchend',mouseUp);
     window.addEventListener('touchstart',mouseDown);
     window.addEventListener('touchmove', setPickPositionTouch);
     window.addEventListener('touchend', clearPickPosition);
     window.addEventListener('touchend', clearPickPosition);
     console.log("スマホのイベント初期化が実行されました");
-}
-else{
+}*/
+//else{
     window.addEventListener('mouseup',mouseUp);
     window.addEventListener('mousedown',mouseDown);
     window.addEventListener('mousemove', setPickPosition);
     window.addEventListener('mouseout', clearPickPosition);
     window.addEventListener('mouseleave', clearPickPosition);
     console.log("パソコンのイベント初期化が実行されました");
-}
+//}
 
 
 function cameraRot(){
