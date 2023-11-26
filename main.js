@@ -65,6 +65,15 @@ const pickPosition = {x: 0, y: 0};
 clearPickPosition();
 const pickHelper = new PickHelper();
 
+//debug
+if(isMobileDevice==true){
+    const s = new THREE.SphereGeometry(50,50,50);
+    const m = new THREE.MeshBasicMaterial();
+    m.color.setRGB(1,0,0);
+    const me = new THREE.Mesh(s,m);
+    scene.add(me);
+}
+
 render();
 
 // 毎フレーム時に実行されるループイベント
@@ -188,6 +197,12 @@ window.onload = function() {
     spinner.classList.add('loaded');
 
     //document.querySelector('mainCanvas').style.display = 'block';
+}
+
+console.log(isMobileDevice());
+
+function isMobileDevice() {
+    return /Mobi|Android/i.test(navigator.userAgent);
 }
 
 function isSmartPhone() {
