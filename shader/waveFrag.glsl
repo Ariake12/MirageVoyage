@@ -1,4 +1,4 @@
-precision mediump float;
+precision highp float;
 
 uniform sampler2D tex1;
 uniform sampler2D tex2;
@@ -29,15 +29,6 @@ void main(){
             texture2D(tex1,vUv+vec2(0.,stride.y)).r-
             4.*texture2D(tex1,vUv).r
         )-texture2D(tex2,vUv).r) * Attenuation;
-        //u = (u+1.)*0.5;
-        //u*=0.01;
-
-        /*u = texture2D(tex1,vUv-vec2(stride.x,0.)).r+
-            texture2D(tex1,vUv+vec2(stride.x,0.)).r+
-            texture2D(tex1,vUv-vec2(0.,stride.y)).r+
-            texture2D(tex1,vUv+vec2(0.,stride.y)).r;
-            u *= Attenuation;*/
-            //u = texture2D(tex1,vUv).r * Attenuation;   
     }
     gl_FragColor = vec4(vec3(u),1.);
 }
