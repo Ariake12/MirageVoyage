@@ -30,7 +30,7 @@ void main(){
             4.*texture2D(tex1,vUv).r
         )-texture2D(tex2,vUv).r) * Attenuation;
 
-        //u = 2.*texture2D(tex1,vUv).r;
+        u = 2.*texture2D(tex1,vUv).r;
     }
     gl_FragColor = vec4(vec3(u),1.);
 }
