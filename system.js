@@ -95,7 +95,7 @@ function loadShader(scene,sea){
     if(isMobileDevice()==true || isInAppBrowser()==true){
         loader2.load("./shader/waveVertPhone.glsl",function(data){
             vertexShader2 = data;
-            loader2.load("./shader/waveFragPnone.glsl",function(data){
+            loader2.load("./shader/waveFragPhone.glsl",function(data){
                 fragmentShader2 = data;
                 const geometry = new THREE.PlaneGeometry(2,2);
                 const material = new THREE.ShaderMaterial({
