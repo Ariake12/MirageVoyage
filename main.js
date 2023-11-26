@@ -66,7 +66,7 @@ clearPickPosition();
 const pickHelper = new PickHelper();
 
 //debug
-if(isMobileDevice()==true || isInAppBrowser==true){
+if(isMobileDevice()==true || isInAppBrowser()==true){
     const s = new THREE.SphereGeometry(50,50,50);
     const m = new THREE.MeshBasicMaterial();
     m.color.setRGB(1,0,0);
@@ -153,7 +153,7 @@ function mouseUp(){
     isMouseTouch = false;
 }
 
-if(isSmartPhone==true){
+if(isMobileDevice()==true || isInAppBrowser()==true){
     window.addEventListener('touchend',mouseUp);
     window.addEventListener('touchstart',mouseDown);
     window.addEventListener('touchmove', setPickPositionTouch);
@@ -205,12 +205,6 @@ function isMobileDevice() {
 
 function isInAppBrowser() {
     if (navigator.userAgent.includes('FBAV')) {
-        return true;
-    }
-
-    var windowFeatures = 'menubar=yes,location=yes,resizable=yes,scrollbars=yes,status=yes';
-    var newWindow = window.open('', 'test', windowFeatures);
-    if (!newWindow || newWindow.closed || typeof newWindow.closed === 'undefined') {
         return true;
     }
 
