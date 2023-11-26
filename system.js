@@ -25,7 +25,7 @@ const uniforms2 = {
 };
 const uniforms3 = {
     tex: {value: null},
-}
+};
 
 let plane;
 let uvAttribute;
@@ -58,6 +58,7 @@ const blitScene = new THREE.Scene();
 function loadShader(scene,sea){
     let vertexShader,fragmentShader;
     const loader = new THREE.FileLoader();
+
     loader.load("./shader/vertexShader.glsl",function(data){
         vertexShader = data;
         loader.load("./shader/fragmentShader.glsl",function(data){
@@ -91,20 +92,38 @@ function loadShader(scene,sea){
 
     let vertexShader2,fragmentShader2;
     const loader2 = new THREE.FileLoader();
-    loader2.load("./shader/waveVert.glsl",function(data){
-        vertexShader2 = data;
-        loader2.load("./shader/waveFrag.glsl",function(data){
-            fragmentShader2 = data;
-            const geometry = new THREE.PlaneGeometry(2,2);
-            const material = new THREE.ShaderMaterial({
-                vertexShader: vertexShader2,
-                fragmentShader: fragmentShader2,
-                uniforms: uniforms2,
+    if(isMobileDevice()==true || isInAppBrowser()==true){
+        loader2.load("./shader/waveVertPhone.glsl",function(data){
+            vertexShader2 = data;
+            loader2.load("./shader/waveFragPnone.glsl",function(data){
+                fragmentShader2 = data;
+                const geometry = new THREE.PlaneGeometry(2,2);
+                const material = new THREE.ShaderMaterial({
+                    vertexShader: vertexShader2,
+                    fragmentShader: fragmentShader2,
+                    uniforms: uniforms2,
+                });
+                const fullscreenQuad = new THREE.Mesh(geometry, material);
+                shaderComputeScene.add(fullscreenQuad);
             });
-            const fullscreenQuad = new THREE.Mesh(geometry, material);
-            shaderComputeScene.add(fullscreenQuad);
-        })
-    })
+        });
+    }
+    else{
+        loader2.load("./shader/waveVert.glsl",function(data){
+            vertexShader2 = data;
+            loader2.load("./shader/waveFrag.glsl",function(data){
+                fragmentShader2 = data;
+                const geometry = new THREE.PlaneGeometry(2,2);
+                const material = new THREE.ShaderMaterial({
+                    vertexShader: vertexShader2,
+                    fragmentShader: fragmentShader2,
+                    uniforms: uniforms2,
+                });
+                const fullscreenQuad = new THREE.Mesh(geometry, material);
+                shaderComputeScene.add(fullscreenQuad);
+            });
+        });
+    }
 
     let vertexShader3,fragmentShader3;
     const loader3 = new THREE.FileLoader();
@@ -120,8 +139,8 @@ function loadShader(scene,sea){
             });
             const fullscreenQuad = new THREE.Mesh(geometry, material);
             blitScene.add(fullscreenQuad);
-        })
-    })
+        });
+    });
 }
 
 export function objectsCreate(scene,sea){
@@ -211,4 +230,16 @@ function Blit(targetRenderTexture1,targetRenderTexture2,renderer){
     renderer.setRenderTarget(targetRenderTexture2);
     renderer.render(blitScene, camera2);
     renderer.setRenderTarget(null);
+}
+
+export function isMobileDevice() {
+    return /Mobi|Android|iPhone/i.test(navigator.userAgent);
+}
+
+export function isInAppBrowser() {
+    if (navigator.userAgent.includes('FBAV')) {
+        return true;
+    }
+
+    return false;
 }

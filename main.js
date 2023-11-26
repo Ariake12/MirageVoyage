@@ -6,6 +6,8 @@ import {PickHelper} from "./pick.js"
 import { cameraToSphere } from "./ledPoolFloatingLightSystem.js";
 import {BloomInit} from "./effect.js";
 import { humanRotate } from "./system.js";
+import { isMobileDevice } from "./system.js";
+import { isInAppBrowser } from "./system.js";
 
 let mousePosX1 = 0.0;
 let mousePosX2 = 0.0;
@@ -153,6 +155,7 @@ function mouseUp(){
     isMouseTouch = false;
 }
 
+//TODO:これを実行するとスマホ版ブラウザが動作しなくなるので修正する必要あり
 /*if(isMobileDevice()==true || isInAppBrowser()==true){
     window.addEventListener('touchend',mouseUp);
     window.addEventListener('touchstart',mouseDown);
@@ -197,16 +200,4 @@ window.onload = function() {
     spinner.classList.add('loaded');
 
     //document.querySelector('mainCanvas').style.display = 'block';
-}
-
-function isMobileDevice() {
-    return /Mobi|Android|iPhone/i.test(navigator.userAgent);
-}
-
-function isInAppBrowser() {
-    if (navigator.userAgent.includes('FBAV')) {
-        return true;
-    }
-
-    return false;
 }
