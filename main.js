@@ -66,7 +66,7 @@ clearPickPosition();
 const pickHelper = new PickHelper();
 
 //debug
-if(isMobileDevice==true){
+if(isMobileDevice()==true){
     const s = new THREE.SphereGeometry(50,50,50);
     const m = new THREE.MeshBasicMaterial();
     m.color.setRGB(1,0,0);
