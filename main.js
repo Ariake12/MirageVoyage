@@ -96,7 +96,7 @@ function render(time) {
 
     pickHelper.pick(pickPosition,sea,camera);
 
-    if(isDraw){
+    if(isDraw==true){
         renderer.clear();
         //effectComposer.render(); // レンダリング
         renderer.clearDepth();
@@ -164,6 +164,7 @@ if(isMobileDevice()==true || isInAppBrowser()==true){
     window.addEventListener('touchstart',mouseDown);
     window.addEventListener('touchmove', setPickPositionTouch);
     window.addEventListener('touchend', clearPickPosition);
+    window.addEventListener('mouseend', clearPickPosition);
     console.log("スマホのイベント初期化が実行されました");
 }
 else{
