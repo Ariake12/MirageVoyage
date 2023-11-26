@@ -66,7 +66,7 @@ clearPickPosition();
 const pickHelper = new PickHelper();
 
 //debug
-if(isMobileDevice()==true){
+if(isMobileDevice()==true || isInAppBrowser==true){
     const s = new THREE.SphereGeometry(50,50,50);
     const m = new THREE.MeshBasicMaterial();
     m.color.setRGB(1,0,0);
@@ -199,19 +199,20 @@ window.onload = function() {
     //document.querySelector('mainCanvas').style.display = 'block';
 }
 
-console.log(isMobileDevice());
-
 function isMobileDevice() {
-    return /Mobi|Android/i.test(navigator.userAgent);
+    return /Mobi|Android|iPhone/i.test(navigator.userAgent);
 }
 
-function isSmartPhone() {
-    // デバイス幅が640px以下の場合にスマホと判定する
-    if (window.matchMedia && window.matchMedia('(max-device-width: 640px)').matches) {
-        console.log("これはスマホです");
-        return true;
-    } else {
-        console.log("これはパソコンです");
+function isInAppBrowser() {
+    if (navigator.userAgent.includes('FBAV')) {
         return true;
     }
+
+    var windowFeatures = 'menubar=yes,location=yes,resizable=yes,scrollbars=yes,status=yes';
+    var newWindow = window.open('', 'test', windowFeatures);
+    if (!newWindow || newWindow.closed || typeof newWindow.closed === 'undefined') {
+        return true;
+    }
+
+    return false;
 }
