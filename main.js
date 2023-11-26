@@ -89,10 +89,6 @@ function render(time) {
         //effectComposer.render(); // レンダリング
         renderer.clearDepth();
         renderer.render(scene, camera); // レンダリング
-
-        console.log("render");
-    }{
-        console.log("render待機")
     }
 }
 
@@ -199,12 +195,7 @@ function isSmartPhone() {
         console.log("これはスマホです");
         return true;
     } else {
-        return false;
+        console.log("これはパソコンです");
+        return true;
     }
-}
-
-if(isSmartPhone()){
-    window.addEventListener('load', function() {
-        screen.orientation.lock('landscape');
-    }); 
 }
