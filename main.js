@@ -67,12 +67,13 @@ const pickPosition = {x: 0, y: 0};
 clearPickPosition();
 const pickHelper = new PickHelper();
 
+let me;
 //debug
 if(isMobileDevice()==true || isInAppBrowser()==true){
     const s = new THREE.SphereGeometry(50,50,50);
     const m = new THREE.MeshBasicMaterial();
     m.color.setRGB(1,0,0);
-    const me = new THREE.Mesh(s,m);
+    me = new THREE.Mesh(s,m);
     scene.add(me);
 }
 
@@ -138,6 +139,8 @@ function setPickPosition(event) {
 
 function setPickPositionTouch(event) {
     const pos = getCanvasRelativePositionTouch(event);
+    me.position.x = pos.x;
+    me.position.y = pos.y;
     pickPosition.x = (pos.x / canvasElement.width ) * 2 - 1;
     pickPosition.y = (pos.y / canvasElement.height) * -2 + 1;  
 }
