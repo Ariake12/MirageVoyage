@@ -1,6 +1,7 @@
 precision mediump float;
 
 uniform samplerCube cubeMap;
+uniform sampler2D waveMap;
 
 varying vec2 vUv;
 varying float vITime;
@@ -28,7 +29,7 @@ void main() {
     vec4 diffuseCol = mix(vec4(0.01,0.01,0.01,1.),vec4(0.2, 0.24, 0.48, 1.0),vec4(max(0.,dot(vNormal,vLightDir)*1.0+0.0)));
     col = col * diffuseCol + reflectedColor;
 
-    //col = vec4(texture2D(waveMap,vUv).rgb,1.);
+    col = vec4(texture2D(waveMap,vUv).rgb,1.);
     //col = vec4(vNormal,1.);
     //col.a = 0.;
 

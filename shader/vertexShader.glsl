@@ -4,7 +4,6 @@ uniform mat4 modelMatrix;
 uniform vec3 lightDir;
 uniform sampler2D bumpMap;
 uniform vec3 eye;
-uniform sampler2D waveMap;
 
 attribute vec3 position;
 attribute vec2 uv;
@@ -76,9 +75,9 @@ void main(){
     vec3 normal2 = texture2D( bumpMap, mod(uv*4. +vec2(iTime*0.01,0.),1.)).rgb;
     normal2 = modifiedTangent*normal2.r + modifiedBinormal*normal2.g + normal*normal2.b;
 
-    float waveH = texture2D(waveMap,uv).r;
-    pos.z += waveH*80.;
-    vec4 vt = projectionMatrix * viewMatrix * modelMatrix * vec4(pos,1.0);
+    //float waveH = texture2D(waveMap,uv).r;
+    //pos.z += waveH*80.;
+    vec4 vt = projectionMatrix * viewMatrix * modelMatrix * vec4(position,1.0);
 
     vUv = uv;
     vITime = iTime;
