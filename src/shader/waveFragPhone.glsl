@@ -7,7 +7,7 @@ uniform vec2 touch;
 
 varying vec2 vUv;
 
-#define waveSpeed 0.73
+#define waveSpeed 0.78
 #define touchScale 0.006
 #define Attenuation 0.8
 
