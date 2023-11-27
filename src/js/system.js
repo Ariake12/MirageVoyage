@@ -177,7 +177,7 @@ export function objectsCreate(scene,sea){
         "Back_Tex-1.png",
     ]);
     scene.background = cubeTexture;
-    scene.backgroundIntensity = 0.34;
+    scene.backgroundIntensity = 0.18;
 }
 
 export  function loop(time,lightDir,eyeDir){

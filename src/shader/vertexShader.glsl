@@ -37,7 +37,7 @@ float noise(vec2 x) {
 	return mix(a, b, u.x) + (c - a) * u.y * (1.0 - u.x) + (d - b) * u.x * u.y;
 }
 
-#define NUM_OCTAVES 5
+#define NUM_OCTAVES 12
 float fbm(vec2 x) {
 	float v = 0.0;
 	float a = 0.5;
@@ -56,9 +56,10 @@ void main(){
     vec3 posT = position + tangent;
     vec3 posB = position + normalize(cross(normal,tangent));
 
-    float h = fbm(vec2(iTime*0.2,0)+uv*10.)*150.;
-    h += sin(uv.x*6.+iTime*0.4)*40.;
-    h += sin(uv.x*6.-iTime*0.4)*40.;
+    float h = fbm(vec2(iTime*0.3,0)+uv*10.)*170.;
+    h += sin(uv.x*12.+iTime*0.7)*25.;
+    h += sin(uv.x*12.-iTime*0.6)*25.;
+    h += cos(uv.y*12.-iTime*0.7+0.3)*25.;
 
     float hN = fbm(vec2(iTime*0.2,0)+uv*50.);
     float hT = fbm(vec2(iTime*0.2+posT.x,posT.y)+uv*50.);
