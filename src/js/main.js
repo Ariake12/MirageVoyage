@@ -6,6 +6,8 @@ import {PickHelper} from "./pick.js"
 import { cameraToSphere } from "./ledPoolFloatingLightSystem.js";
 import {BloomInit} from "./effect.js";
 import { humanRotate } from "./system.js";
+import { isMobileDevice } from "./system.js";
+import { isInAppBrowser } from "./system.js";
 
 let mousePosX1 = 0.0;
 let mousePosX2 = 0.0;
@@ -144,12 +146,32 @@ function mouseUp(){
     isMouseTouch = false;
 }
 
-if(isSmartPhone==true){
-    window.addEventListener('touchend',mouseUp);
-    window.addEventListener('touchstart',mouseDown);
+function touchStart(event){
+    isMouseTouch = true;
+
+    const pos = getCanvasRelativePositionTouch(event);
+    me.position.x = pos.x;
+    me.position.y = pos.y;
+    pickPosition.x = (pos.x / canvasElement.width ) * 2 - 1;
+    pickPosition.y = (pos.y / canvasElement.height) * -2 + 1; 
+}
+
+function touchEnd(event){
+    isMouseTouch = false;
+    
+    const pos = getCanvasRelativePositionTouch(event);
+    me.position.x = pos.x;
+    me.position.y = pos.y;
+    pickPosition.x = (pos.x / canvasElement.width ) * 2 - 1;
+    pickPosition.y = (pos.y / canvasElement.height) * -2 + 1; 
+}
+
+//TODO:これを実行するとスマホ版ブラウザが動作しなくなるので修正する必要あり
+if(isMobileDevice()==true || isInAppBrowser()==true){
+    window.addEventListener('touchend',touchEnd);
+    window.addEventListener('touchstart',touchStart);
     window.addEventListener('touchmove', setPickPositionTouch);
     window.addEventListener('touchend', clearPickPosition);
-    window.addEventListener('mouseend', clearPickPosition);
     console.log("スマホのイベント初期化が実行されました");
 }
 else{
@@ -158,8 +180,8 @@ else{
     window.addEventListener('mousemove', setPickPosition);
     window.addEventListener('mouseout', clearPickPosition);
     window.addEventListener('mouseleave', clearPickPosition);
+    console.log("パソコンのイベント初期化が実行されました");
 }
-
 
 function cameraRot(){
     theta += radSpeed*0.1;
@@ -187,15 +209,4 @@ window.onload = function() {
     spinner.classList.add('loaded');
 
     //document.querySelector('mainCanvas').style.display = 'block';
-}
-
-function isSmartPhone() {
-    // デバイス幅が640px以下の場合にスマホと判定する
-    if (window.matchMedia && window.matchMedia('(max-device-width: 640px)').matches) {
-        console.log("これはスマホです");
-        return true;
-    } else {
-        console.log("これはパソコンです");
-        return true;
-    }
 }

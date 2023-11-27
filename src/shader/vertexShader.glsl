@@ -72,7 +72,6 @@ void main(){
     vec3 modifiedTangent = posT - posN;
     vec3 modifiedBinormal = posB - posN;
 
-    //vec3 normal2 = normalize(cross(modifiedTangent,modifiedBinormal));
     vec3 normal2 = texture2D( bumpMap, mod(uv*4. +vec2(iTime*0.01,0.),1.)).rgb;
     normal2 = modifiedTangent*normal2.r + modifiedBinormal*normal2.g + normal*normal2.b;
 
