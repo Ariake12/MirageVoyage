@@ -9,7 +9,7 @@ varying vec2 vUv;
 
 #define waveSpeed 0.78
 #define touchScale 0.006
-#define Attenuation 0.8
+#define Attenuation 0.999
 
 void main(){
     vec2 stride = 1./resolution;
@@ -20,7 +20,6 @@ void main(){
         u = 1.;
     }
     else{
-        //vec2 u;
         u = (2.*texture2D(tex1,vUv).r +
         waveSpeed*waveSpeed*(
             texture2D(tex1,vUv-vec2(stride.x,0.)).r+
@@ -29,8 +28,6 @@ void main(){
             texture2D(tex1,vUv+vec2(0.,stride.y)).r-
             4.*texture2D(tex1,vUv).r
         )-texture2D(tex2,vUv).r) * Attenuation;
-
-        //u = texture2D(tex1,vUv).r;
     }
     gl_FragColor = vec4(vec3(u),1.);
 }
