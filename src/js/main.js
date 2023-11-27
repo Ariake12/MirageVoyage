@@ -150,8 +150,6 @@ function touchStart(event){
     isMouseTouch = true;
 
     const pos = getCanvasRelativePositionTouch(event);
-    me.position.x = pos.x;
-    me.position.y = pos.y;
     pickPosition.x = (pos.x / canvasElement.width ) * 2 - 1;
     pickPosition.y = (pos.y / canvasElement.height) * -2 + 1; 
 }
@@ -160,8 +158,6 @@ function touchEnd(event){
     isMouseTouch = false;
     
     const pos = getCanvasRelativePositionTouch(event);
-    me.position.x = pos.x;
-    me.position.y = pos.y;
     pickPosition.x = (pos.x / canvasElement.width ) * 2 - 1;
     pickPosition.y = (pos.y / canvasElement.height) * -2 + 1; 
 }
