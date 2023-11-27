@@ -148,6 +148,7 @@ function mouseUp(){
 
 function touchStart(event){
     isMouseTouch = true;
+    mousePosX2 = mousePosX1;
 
     const pos = getCanvasRelativePositionTouch(event);
     pickPosition.x = (pos.x / canvasElement.width ) * 2 - 1;

@@ -7,9 +7,9 @@ uniform vec2 touch;
 
 varying vec2 vUv;
 
-#define waveSpeed 0.68
-#define touchScale 0.003
-#define Attenuation 0.9
+#define waveSpeed 0.73
+#define touchScale 0.006
+#define Attenuation 0.8
 
 void main(){
     vec2 stride = 1./resolution;
