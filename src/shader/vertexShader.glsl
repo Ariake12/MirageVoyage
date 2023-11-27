@@ -37,7 +37,7 @@ float noise(vec2 x) {
 	return mix(a, b, u.x) + (c - a) * u.y * (1.0 - u.x) + (d - b) * u.x * u.y;
 }
 
-#define NUM_OCTAVES 12
+#define NUM_OCTAVES 6
 float fbm(vec2 x) {
 	float v = 0.0;
 	float a = 0.5;
