@@ -25,7 +25,7 @@ void main() {
     col.g *= fresnel * 0.1;
     col.r *= fresnel * 0.1;
 
-    vec4 diffuseCol = mix(vec4(0.01,0.01,0.01,1.),vec4(0.2, 0.24, 0.48, 1.0),vec4(max(0.,dot(vNormal,vLightDir)*1.0+0.0)));
+    vec4 diffuseCol = mix(vec4(0.01,0.01,0.01,1.),vec4(0.15, 0.19, 0.43, 1.0),vec4(max(0.,dot(vNormal,vLightDir)*1.0+0.0)));
     col = col * diffuseCol + reflectedColor;
 
     //col = vec4(texture2D(waveMap,vUv).rgb,1.);

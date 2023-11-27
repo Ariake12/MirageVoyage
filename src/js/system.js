@@ -59,14 +59,14 @@ function loadShader(scene,sea){
     let vertexShader,fragmentShader;
     const loader = new THREE.FileLoader();
 
-    loader.load("./shader/vertexShader.glsl",function(data){
+    loader.load("./src/shader/vertexShader.glsl",function(data){
         vertexShader = data;
-        loader.load("./shader/fragmentShader.glsl",function(data){
+        loader.load("./src/shader/fragmentShader.glsl",function(data){
             fragmentShader = data;
 
             //テクスチャの読み込み
             const loader2 = new THREE.TextureLoader();
-            texture = loader2.load("./assets/texture/Noise_Normal.png");
+            texture = loader2.load("./src/assets/texture/Noise_Normal.png");
 
             const geometry = new THREE.PlaneGeometry(5000,5000,planeWidth,planeHeight);
             geometry.computeTangents();
@@ -93,9 +93,9 @@ function loadShader(scene,sea){
     let vertexShader2,fragmentShader2;
     const loader2 = new THREE.FileLoader();
     if(isMobileDevice()==true || isInAppBrowser()==true){
-        loader2.load("./shader/waveVertPhone.glsl",function(data){
+        loader2.load("./src/shader/waveVertPhone.glsl",function(data){
             vertexShader2 = data;
-            loader2.load("./shader/waveFragPhone.glsl",function(data){
+            loader2.load("./src/shader/waveFragPhone.glsl",function(data){
                 fragmentShader2 = data;
                 const geometry = new THREE.PlaneGeometry(2,2);
                 const material = new THREE.ShaderMaterial({
@@ -109,9 +109,9 @@ function loadShader(scene,sea){
         });
     }
     else{
-        loader2.load("./shader/waveVert.glsl",function(data){
+        loader2.load("./src/shader/waveVert.glsl",function(data){
             vertexShader2 = data;
-            loader2.load("./shader/waveFrag.glsl",function(data){
+            loader2.load("./src/shader/waveFrag.glsl",function(data){
                 fragmentShader2 = data;
                 const geometry = new THREE.PlaneGeometry(2,2);
                 const material = new THREE.ShaderMaterial({
@@ -127,9 +127,9 @@ function loadShader(scene,sea){
 
     let vertexShader3,fragmentShader3;
     const loader3 = new THREE.FileLoader();
-    loader3.load("./shader/blitVert.glsl",function(data){
+    loader3.load("./src/shader/blitVert.glsl",function(data){
         vertexShader3 = data;
-        loader2.load("./shader/blitFrag.glsl",function(data){
+        loader2.load("./src/shader/blitFrag.glsl",function(data){
             fragmentShader3 = data;
             const geometry = new THREE.PlaneGeometry(2,2);
             const material = new THREE.ShaderMaterial({
@@ -152,7 +152,7 @@ export function objectsCreate(scene,sea){
 
     //人物の追加
     const textureLoader = new THREE.TextureLoader();
-    const texture = textureLoader.load('./assets/texture/Human.png');
+    const texture = textureLoader.load('./src/assets/texture/Human.png');
 
     const plane = new THREE.PlaneGeometry(400,400);
     const humanMaterial = new THREE.MeshBasicMaterial({
@@ -167,7 +167,7 @@ export function objectsCreate(scene,sea){
 
     //skyboxの追加
     cubeTexture = new THREE.CubeTextureLoader()
-        .setPath("./assets/skybox/")
+        .setPath("./src/assets/skybox/")
         .load([
         "Left_Tex-1.png",
         "Right_Tex-1.png",
@@ -177,7 +177,7 @@ export function objectsCreate(scene,sea){
         "Back_Tex-1.png",
     ]);
     scene.background = cubeTexture;
-    scene.backgroundIntensity = 0.15;
+    scene.backgroundIntensity = 0.34;
 }
 
 export  function loop(time,lightDir,eyeDir){
