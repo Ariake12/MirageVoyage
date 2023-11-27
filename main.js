@@ -96,7 +96,7 @@ function render(time) {
 
     pickHelper.pick(pickPosition,sea,camera);
 
-    if(isDraw==true){
+    if(isDraw){
         renderer.clear();
         //effectComposer.render(); // レンダリング
         renderer.clearDepth();
@@ -158,10 +158,30 @@ function mouseUp(){
     isMouseTouch = false;
 }
 
+function touchStart(event){
+    isMouseTouch = true;
+
+    const pos = getCanvasRelativePositionTouch(event);
+    me.position.x = pos.x;
+    me.position.y = pos.y;
+    pickPosition.x = (pos.x / canvasElement.width ) * 2 - 1;
+    pickPosition.y = (pos.y / canvasElement.height) * -2 + 1; 
+}
+
+function touchEnd(event){
+    isMouseTouch = false;
+    
+    const pos = getCanvasRelativePositionTouch(event);
+    me.position.x = pos.x;
+    me.position.y = pos.y;
+    pickPosition.x = (pos.x / canvasElement.width ) * 2 - 1;
+    pickPosition.y = (pos.y / canvasElement.height) * -2 + 1; 
+}
+
 //TODO:これを実行するとスマホ版ブラウザが動作しなくなるので修正する必要あり
 if(isMobileDevice()==true || isInAppBrowser()==true){
-    window.addEventListener('touchend',mouseUp);
-    window.addEventListener('touchstart',mouseDown);
+    window.addEventListener('touchend',touchEnd);
+    window.addEventListener('touchstart',touchStart);
     window.addEventListener('touchmove', setPickPositionTouch);
     window.addEventListener('touchend', clearPickPosition);
     console.log("スマホのイベント初期化が実行されました");
