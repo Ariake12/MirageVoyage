@@ -14,7 +14,7 @@ export function LEDPoolFloatingLightCreate(scene){
     centerSphere.position.y += centerSphereElevation;
     //centerSphere.layers.set(1);
     cameraToSphere(centerSphere);
-    //scene.add(centerSphere);
+    scene.add(centerSphere);
 
     SphereCountryCreate(scene);
 }

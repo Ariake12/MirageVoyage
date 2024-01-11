@@ -18,6 +18,6 @@ export function SphereCountryCreate(scene){
         sphere.position.set(position.x,position.y,position.z);
         sphere.position.y += sphereElevation;
         //sphere.layers.set(1);
-        //scene.add(sphere);
+        scene.add(sphere);
     }
 }
