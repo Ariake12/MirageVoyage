@@ -1,6 +1,5 @@
 import * as THREE from "three";
 import {LEDPoolFloatingLightCreate} from "./ledPoolFloatingLightSystem.js";
-import { getBloomTarget } from "./effect.js";
 
 const planeWidth = 500;
 const planeHeight = 500;
@@ -66,7 +65,7 @@ function loadShader(scene,sea){
 
             //テクスチャの読み込み
             const loader2 = new THREE.TextureLoader();
-            texture = loader2.load("./src/assets/texture/Noise_Normal.png");
+            texture = loader2.load("./src/assets/texture/Noise_Normal-min.png");
 
             const geometry = new THREE.PlaneGeometry(5000,5000,planeWidth,planeHeight);
             geometry.computeTangents();
@@ -169,12 +168,12 @@ export function objectsCreate(scene,sea){
     cubeTexture = new THREE.CubeTextureLoader()
         .setPath("./src/assets/skybox/")
         .load([
-        "Left_Tex-1.png",
-        "Right_Tex-1.png",
-        "Up_Tex-1.png",
-        "Down_Tex-1.png",
-        "Front_Tex-1.png",
-        "Back_Tex-1.png",
+        "Left_Tex-1-min.png",
+        "Right_Tex-1-min.png",
+        "Up_Tex-1-min.png",
+        "Down_Tex-1-min.png",
+        "Front_Tex-1-min.png",
+        "Back_Tex-1-min.png",
     ]);
     scene.background = cubeTexture;
     scene.backgroundIntensity = 0.18;

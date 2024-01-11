@@ -1,6 +1,4 @@
 import * as THREE from "three";
-import { getBloomTarget } from "./effect.js";
-
 
 const generateNum = 7;
 const generateRange = 2000;
@@ -19,7 +17,6 @@ export function SphereCountryCreate(scene){
         const sphere = new THREE.Mesh(geometry, material);
         sphere.position.set(position.x,position.y,position.z);
         sphere.position.y += sphereElevation;
-        getBloomTarget(sphere);
         //sphere.layers.set(1);
         //scene.add(sphere);
     }

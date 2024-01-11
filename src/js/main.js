@@ -4,7 +4,6 @@ import {loop} from "./system.js";
 import {shaderAnimate} from "./system.js"
 import {PickHelper} from "./pick.js"
 import { cameraToSphere } from "./ledPoolFloatingLightSystem.js";
-import {BloomInit} from "./effect.js";
 import { humanRotate } from "./system.js";
 import { isMobileDevice } from "./system.js";
 import { isInAppBrowser } from "./system.js";
@@ -34,8 +33,12 @@ renderer.setPixelRatio(window.devicePixelRatio);
 renderer.setSize(window.innerWidth, window.innerHeight);
 renderer.autoClear = false; // レイヤーを有効化するときは自動クリアを無効化する
 
+console.log("レンダラーを作成しました。");
+
 // シーンを作成
 const scene = new THREE.Scene();
+
+console.log("シーンを作成しました。");
 
 // カメラを作成
 const camera = new THREE.PerspectiveCamera(60, window.innerWidth / window.innerHeight, 0.1, 5000);
@@ -43,6 +46,8 @@ camera.position.set(0, 200, controllRadius);
 const eyeDir = new THREE.Vector3();
 camera.getWorldDirection(eyeDir);
 scene.add(camera);
+
+console.log("カメラをセットしました。");
 
 //ライトを作成
 const directionalLight = new THREE.DirectionalLight(new THREE.Color(0.0,0.0,0.0),);
@@ -53,11 +58,14 @@ scene.add(directionalLight);
 const ambientLight = new THREE.AmbientLight(new THREE.Color(0.0,0.0,0.0),0); 
 scene.add(ambientLight);
 
+console.log("ライトをセットしました。");
+
 //オブジェクトの設定
 const sea = new THREE.Object3D();
 scene.add(sea);
 objectsCreate(scene,sea);
-const effectComposer = BloomInit(renderer,scene,camera);
+
+console.log("オブジェクトの設定をしました。");
 
 //resize初期化
 onResize();
