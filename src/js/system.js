@@ -162,7 +162,7 @@ export function objectsCreate(scene,sea){
     humanImage = new THREE.Mesh(plane,humanMaterial);
     humanImage.position.y = 300;
     //humanImage.layers.set(0);
-    scene.add(humanImage);
+    //scene.add(humanImage);
 
     //skyboxの追加
     cubeTexture = new THREE.CubeTextureLoader()
